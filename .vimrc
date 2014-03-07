@@ -2,8 +2,16 @@
 
 set nocompatible               " be iMproved
 filetype off                   " required!
+
+"Vundle
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
+
+Bundle 'gmarik/vundle'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'tpope/vim-sensible'
+
 execute pathogen#infect()
 
 filetype plugin indent on     " required!
