@@ -1,5 +1,0 @@
-Host bitbucket.org
-ProxyCommand nc -x catke.com:10086 -X 5 %h %p
-Host github.org
-ProxyCommand nc -x catke.com:10086 -X 5 %h %p
-
