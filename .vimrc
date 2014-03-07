@@ -11,19 +11,25 @@ Bundle 'gmarik/vundle'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'tpope/vim-sensible'
+Bundle 'scrooloose/nerdtree'
 
 execute pathogen#infect()
 
 filetype plugin indent on     " required!
 
 " color
-let g:solarized_termcolors=256
 syntax enable
+let g:molokai_original = 1
 if has('gui_running')
-	colorscheme monokai 
+	"colorscheme monokai 
+	colo molokai
 else
+	"let g:solarized_termcolors=256
+	"set background=dark
+	"colorscheme solarized
+	colo molokai
+	let g:rehash256 = 1
 	set background=dark
-	colorscheme solarized
 endif
 
 " base set 
@@ -64,3 +70,6 @@ au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 au FileType html set omnifunc=htmlcomplete#CompleteTags
 au FileType css set omnifunc=csscomplete#CompleteCSS
 au BufRead,BufNewFile Gemfile,Guardfile set syntax=ruby
+
+" 快捷键
+map <leader>n :NERDTreeToggle<CR>
