@@ -21,7 +21,7 @@ Bundle 'plasticboy/vim-markdown'
 Bundle 'scrooloose/syntastic'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'heavenshell/vim-jsdoc'
-
+Bundle 'dyng/ctrlsf.vim'
 " gui
 "Bundle 'Valloric/YouCompleteMe'
 
@@ -74,6 +74,9 @@ set wildignore=*.pyc " 打开时过滤的扩展名
 " 设置当文件被改动时自动载入
 set autoread
 
+" 设置ctrlsf
+let g:ctrlsf_ackprg = 'ag'
+
 " 在文件中启用自动完成
 au FileType ruby,coffee setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab
 au FileType javascript,css,html,htmldjango setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab
@@ -93,7 +96,7 @@ map <leader>d :JsDoc<CR>
 au BufWritePost *.coffee silent CoffeeMake!
 
 " js 自动添加文件头
-function HeaderJS()
+function! HeaderJS()
 	call setline(1, '/**')
 	call append(1, ' * ')
 	call append(2, ' * @Date: ' . strftime('%Y-%m-%d %T', localtime()))
@@ -104,7 +107,7 @@ function HeaderJS()
 	normal o
 	normal o
 endfunc
-function InsertCommentJS()
+function! InsertCommentJS()
 	if a:lastline == 1 && !getline('.')
 		call HeaderJS()
 	end
@@ -114,7 +117,7 @@ au FileType javascript :%call InsertCommentJS()
 
    
 " python 自动添加文件头
-function HeaderPython()
+function! HeaderPython()
 	call setline(1, "#!/usr/bin/env python")
 	call append(1, "# -*- coding: utf-8 -*-")
 	call append(2, "# @Date: " . strftime('%Y-%m-%d %T', localtime()))
@@ -125,7 +128,7 @@ function HeaderPython()
 	normal o
 	normal o
 endf
-function InsertCommentPython()
+function! InsertCommentPython()
 	if a:lastline == 1 && !getline('.')
 		call HeaderPython()
 	end
@@ -134,7 +137,7 @@ autocmd bufnewfile *.py call HeaderPython()
 au FileType python :%call InsertCommentPython()
 
 " coffee 自动添加文件头
-function HeaderCoffee()
+function! HeaderCoffee()
 	call setline(1, "###*")
 	call append(1, "# ")
 	call append(2, "# @date: " . strftime('%Y-%m-%d %T', localtime()))
@@ -146,7 +149,7 @@ function HeaderCoffee()
 	normal G
 	normal o
 endf
-function InsertCommentCoffee()
+function! InsertCommentCoffee()
 	if a:lastline == 1 && !getline('.')
 		call HeaderCoffee()
 	end
