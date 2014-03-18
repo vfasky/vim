@@ -22,8 +22,13 @@ Bundle 'scrooloose/syntastic'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'heavenshell/vim-jsdoc'
 Bundle 'dyng/ctrlsf.vim'
+Bundle 'hail2u/vim-css3-syntax'
+Bundle 'skammer/vim-css-color'
 " gui
-"Bundle 'Valloric/YouCompleteMe'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'SirVer/ultisnips'
+Bundle 'honza/vim-snippets'
+Bundle 'rstacruz/vim-ultisnips-css'
 
 
 execute pathogen#infect()
@@ -66,6 +71,7 @@ set cul
 " 显示缩进tab线  
 set list lcs=tab:\|\  
 set tabstop=4        " 用TAB键一次4个空格
+set expandtab
 set shiftwidth=4     " 敲回车时也是缩进4个
 set showmatch        " 括号对应
 set incsearch        " 实时显示搜索结果
@@ -76,14 +82,17 @@ set autoread
 
 " 设置ctrlsf
 let g:ctrlsf_ackprg = 'ag'
+let g:Powerline_symbols = 'unicode'
+
 
 " 在文件中启用自动完成
 au FileType ruby,coffee setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab
-au FileType javascript,css,html,htmldjango setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab
+au FileType javascript,css,html,htmldjango,tpl setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab
 au FileType sass setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab
 au BufRead *.wsgi set syntax=python
 au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 au FileType html set omnifunc=htmlcomplete#CompleteTags
+au FileType tpl set omnifunc=htmlcomplete#CompleteTags
 au FileType css set omnifunc=csscomplete#CompleteCSS
 au BufRead,BufNewFile Gemfile,Guardfile set syntax=ruby
 
@@ -156,3 +165,8 @@ function! InsertCommentCoffee()
 endfunc
 autocmd bufnewfile *.coffee call HeaderCoffee()
 au FileType coffee :%call InsertCommentCoffee()
+
+let g:UltiSnipsExpandTrigger = '<c-l>'
+" let g:UltiSnipsJumpForwardTrigger = '<c-j>'
+" let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
+" let g:UltiSnipsListSnippets = '<c-m>'
