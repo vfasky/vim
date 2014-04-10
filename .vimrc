@@ -1,4 +1,4 @@
-" Vundle cofnig
+g
 
 set nocompatible               " be iMproved
 filetype off                   " required!
@@ -39,15 +39,15 @@ filetype plugin indent on     " required!
 syntax enable
 let g:molokai_original = 1
 if has('gui_running')
-	"colorscheme monokai 
-	colo molokai
+    "colorscheme monokai 
+    colo molokai
 else
-	"let g:solarized_termcolors=256
-	"set background=dark
-	"colorscheme solarized
-	colo molokai
-	let g:rehash256 = 1
-	set background=dark
+    "let g:solarized_termcolors=256
+    "set background=dark
+    "colorscheme solarized
+    colo molokai
+    let g:rehash256 = 1
+    set background=dark
 endif
 
 " base set 
@@ -59,9 +59,9 @@ set ls=2
 set path=.,,**
 " 设置默认字体  
 if has('mac')
-	set guifont=Source\ Code\ Pro\:h20 
+    set guifont=Source\ Code\ Pro\:h20 
 else
-	set guifont=Source\ Code\ Pro\ 18
+    set guifont=Source\ Code\ Pro\ 18
 endif
 set autochdir
 
@@ -106,20 +106,20 @@ au BufWritePost *.coffee silent CoffeeMake!
 
 " js 自动添加文件头
 function! HeaderJS()
-	call setline(1, '/**')
-	call append(1, ' * ')
-	call append(2, ' * @Date: ' . strftime('%Y-%m-%d %T', localtime()))
-	call append(3, ' * @Author: vfasky (vfasky@gmail.com)')
-	call append(4, ' * @Version: $Id$')
-	call append(5, ' */')
-	normal G
-	normal o
-	normal o
+    call setline(1, '/**')
+    call append(1, ' * ')
+    call append(2, ' * @Date: ' . strftime('%Y-%m-%d %T', localtime()))
+    call append(3, ' * @Author: vfasky (vfasky@gmail.com)')
+    call append(4, ' * @Version: $Id$')
+    call append(5, ' */')
+    normal G
+    normal o
+    normal o
 endfunc
 function! InsertCommentJS()
-	if a:lastline == 1 && !getline('.')
-		call HeaderJS()
-	end
+    if a:lastline == 1 && !getline('.')
+        call HeaderJS()
+    end
 endfunc
 autocmd bufnewfile *.js call HeaderJS()
 au FileType javascript :%call InsertCommentJS()
@@ -127,41 +127,41 @@ au FileType javascript :%call InsertCommentJS()
    
 " python 自动添加文件头
 function! HeaderPython()
-	call setline(1, "#!/usr/bin/env python")
-	call append(1, "# -*- coding: utf-8 -*-")
-	call append(2, "# @Date: " . strftime('%Y-%m-%d %T', localtime()))
-	call append(3, "# @Author: vfasky (vfasky@gmail.com)")
-	call append(4, "# @Link: http://vfasky.com")
-	call append(5, "# @Version: $Id$")
-	normal G
-	normal o
-	normal o
+    call setline(1, "#!/usr/bin/env python")
+    call append(1, "# -*- coding: utf-8 -*-")
+    call append(2, "# @Date: " . strftime('%Y-%m-%d %T', localtime()))
+    call append(3, "# @Author: vfasky (vfasky@gmail.com)")
+    call append(4, "# @Link: http://vfasky.com")
+    call append(5, "# @Version: $Id$")
+    normal G
+    normal o
+    normal o
 endf
 function! InsertCommentPython()
-	if a:lastline == 1 && !getline('.')
-		call HeaderPython()
-	end
+    if a:lastline == 1 && !getline('.')
+        call HeaderPython()
+    end
 endfunc
 autocmd bufnewfile *.py call HeaderPython()
 au FileType python :%call InsertCommentPython()
 
 " coffee 自动添加文件头
 function! HeaderCoffee()
-	call setline(1, "###*")
-	call append(1, "# ")
-	call append(2, "# @date: " . strftime('%Y-%m-%d %T', localtime()))
-	call append(3, "# @author: vfasky (vfasky@gmail.com)")
-	call append(4, "# @link: http://vfasky.com")
-	call append(5, "# @version: $Id$")
-	call append(6, "###")
-	call append(7, "")
-	normal G
-	normal o
+    call setline(1, "###*")
+    call append(1, "# ")
+    call append(2, "# @date: " . strftime('%Y-%m-%d %T', localtime()))
+    call append(3, "# @author: vfasky (vfasky@gmail.com)")
+    call append(4, "# @link: http://vfasky.com")
+    call append(5, "# @version: $Id$")
+    call append(6, "###")
+    call append(7, "")
+    normal G
+    normal o
 endf
 function! InsertCommentCoffee()
-	if a:lastline == 1 && !getline('.')
-		call HeaderCoffee()
-	end
+    if a:lastline == 1 && !getline('.')
+        call HeaderCoffee()
+    end
 endfunc
 autocmd bufnewfile *.coffee call HeaderCoffee()
 au FileType coffee :%call InsertCommentCoffee()
