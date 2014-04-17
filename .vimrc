@@ -71,7 +71,7 @@ set path=.,,**
 if has('mac')
 	set guifont=Source\ Code\ Pro\:h20 
 else
-	set guifont=Source\ Code\ Pro\ 18
+	set guifont=Source\ Code\ Pro\ 14
 endif
 set autochdir
 
