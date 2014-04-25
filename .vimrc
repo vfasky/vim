@@ -104,7 +104,6 @@ let g:UltiSnipsExpandTrigger="<C-E>"
 let g:ctrlsf_ackprg = 'ag'
 let g:Powerline_symbols = 'unicode'
 
-
 " 在文件中启用自动完成
 au FileType ruby,coffee setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab
 au FileType javascript,css,html,htmldjango,tpl setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab
@@ -115,6 +114,12 @@ au FileType html set omnifunc=htmlcomplete#CompleteTags
 au FileType tpl set omnifunc=htmlcomplete#CompleteTags
 au FileType css set omnifunc=csscomplete#CompleteCSS
 au BufRead,BufNewFile Gemfile,Guardfile set syntax=ruby
+
+" 中文输入法问题
+" - 偏好设置界面里面（按 ⌘+,），把 Draw marked text inline 这个选项去掉
+set noimdisable
+autocmd! InsertLeave * set imdisable|set iminsert=0
+autocmd! InsertEnter * set noimdisable|set iminsert=0
 
 " 快捷键
 map <leader>n :NERDTreeToggle<CR>
