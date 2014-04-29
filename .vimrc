@@ -12,6 +12,7 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'tpope/vim-sensible'
 Bundle 'scrooloose/nerdtree'
+Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'mattn/emmet-vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'groenewege/vim-less'
@@ -39,6 +40,8 @@ Bundle 'rstacruz/vim-ultisnips-css'
 Bundle 'Raimondi/delimitMate'
 " 自动补全html/xml标签
 Bundle 'docunext/closetag.vim'
+
+"Bundle 'nathanaelkane/vim-indent-guides'
 
 
 execute pathogen#infect()
@@ -80,6 +83,9 @@ set cul
 
 " 显示缩进tab线  
 set list lcs=tab:\|\  
+"set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+"let g:indent_guides_enable_on_vim_startup = 1
+
 set tabstop=4        " 用TAB键一次4个空格
 set expandtab
 set shiftwidth=4     " 敲回车时也是缩进4个
