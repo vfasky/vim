@@ -96,6 +96,19 @@ set wildignore=*.pyc " 打开时过滤的扩展名
 " 设置当文件被改动时自动载入
 set autoread
 
+" 自动编译coffee script
+aug coffee
+    au!
+    au BufNewFile,BufRead *.coffee      setf coffee.python
+    au FileType coffee.python           setl makeprg=coffee\ -c\ %
+    au FileType coffee.python           setl errorformat=Error:\ In\ %f\\,\ %m\ on\ line\ %l,
+                                                       \Error:\ In\ %f\\,\ Parse\ error\ on\ line\ %l:\ %m,
+                                                       \SyntaxError:\ In\ %f\\,\ %m,
+                                                       \%-G%.%#
+    au BufWritePost *.coffee silent! make!
+
+aug END
+
 if has('lua')
     let g:acp_enableAtStartup = 0
     let g:neocomplete#enable_at_startup = 1
@@ -132,8 +145,7 @@ map <leader>n :NERDTreeToggle<CR>
 map <leader>cc :TCommentBlock<CR>
 map <leader>d :JsDoc<CR>
 
-" 自动编译coffee script
-au BufWritePost *.coffee silent CoffeeMake!
+
 
 " 自动文档配置
 let g:doc_author = 'vfasky <vfasky@gmail.com>'
@@ -144,9 +156,9 @@ let g:doc_link   = 'http://vfasky.com'
 function! HeaderJS()
 	call setline(1, '/**')
 	call append(1, ' * ')
-	call append(2, ' * @date: ' . strftime('%Y-%m-%d %T', localtime()))
-	call append(3, ' * @author: ' . g:doc_author)
-	call append(4, ' * @version: $Id$')
+	call append(2, ' * @date ' . strftime('%Y-%m-%d %T', localtime()))
+	call append(3, ' * @author ' . g:doc_author)
+	call append(4, ' * @version $Id$')
 	call append(5, ' */')
 	normal G
 	normal o
@@ -185,10 +197,10 @@ au FileType python :%call InsertCommentPython()
 function! HeaderCoffee()
 	call setline(1, "###*")
 	call append(1, "# ")
-	call append(2, "# @date: " . strftime('%Y-%m-%d %T', localtime()))
-	call append(3, "# @author: " . g:doc_author)
-	call append(4, "# @link:" . g:doc_link)
-	call append(5, "# @version: $Id$")
+	call append(2, "# @date " . strftime('%Y-%m-%d %T', localtime()))
+	call append(3, "# @author " . g:doc_author)
+	call append(4, "# @link " . g:doc_link)
+	call append(5, "# @version $Id$")
 	call append(6, "###")
 	call append(7, "")
 	normal G
