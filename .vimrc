@@ -40,6 +40,9 @@ Bundle 'rstacruz/vim-ultisnips-css'
 Bundle 'Raimondi/delimitMate'
 " 自动补全html/xml标签
 Bundle 'docunext/closetag.vim'
+" git
+Bundle 'Xuyuanp/git-nerdtree'
+Bundle 'airblade/vim-gitgutter'
 
 "Bundle 'nathanaelkane/vim-indent-guides'
 
