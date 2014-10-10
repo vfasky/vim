@@ -3,13 +3,16 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
+
+
 "Vundle
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'Lokaltog/vim-powerline'
+"Bundle 'Lokaltog/vim-powerline'
+Bundle 'bling/vim-airline'
 Bundle 'tpope/vim-sensible'
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
@@ -22,7 +25,7 @@ Bundle 'plasticboy/vim-markdown'
 Bundle 'scrooloose/syntastic'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'heavenshell/vim-jsdoc'
-Bundle 'dyng/ctrlsf.vim'
+"Bundle 'dyng/ctrlsf.vim'
 Bundle 'hail2u/vim-css3-syntax'
 Bundle 'skammer/vim-css-color'
 " gui
@@ -41,8 +44,8 @@ Bundle 'Raimondi/delimitMate'
 " 自动补全html/xml标签
 Bundle 'docunext/closetag.vim'
 " git
-Bundle 'Xuyuanp/git-nerdtree'
-Bundle 'airblade/vim-gitgutter'
+"Bundle 'Xuyuanp/git-nerdtree'
+"Bundle 'airblade/vim-gitgutter'
 
 "Bundle 'nathanaelkane/vim-indent-guides'
 
@@ -68,6 +71,36 @@ endif
 
 " base set 
 set encoding=utf-8
+set fileencodings=utf-8,chinese,latin-1
+
+if has("win32")
+    set fileencoding=chinese
+else
+    set fileencoding=utf-8
+endif
+
+"解决菜单乱码
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+source $VIMRUNTIME/mswin.vim
+
+"解决consle输出乱码
+language messages zh_CN.utf-8
+
+"win下隐藏菜单
+if has("win32")
+    "Toggle Menu and Toolbar
+    set guioptions-=m
+    set guioptions-=T
+    map <silent> <F2> :if &guioptions =~# 'T' <Bar>
+            \set guioptions-=T <Bar>
+            \set guioptions-=m <bar>
+        \else <Bar>
+            \set guioptions+=T <Bar>
+            \set guioptions+=m <Bar>
+        \endif<CR>
+endif
+
 set nospell
 set nu " line number
 set smartindent
@@ -76,6 +109,8 @@ set path=.,,**
 " 设置默认字体  
 if has('mac')
 	set guifont=Source\ Code\ Pro\:h20 
+elseif has('win32')
+    set guifont=YaHei\ Consolas\ Hybrid:h16 
 else
 	set guifont=Source\ Code\ Pro\ 14
 endif
@@ -83,6 +118,8 @@ set autochdir
 
 " 设置当前行高亮, cursorline
 set cul 
+
+let g:Powerline_symbols = 'fancy'
 
 " 显示缩进tab线  
 set list lcs=tab:\|\  
