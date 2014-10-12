@@ -177,6 +177,9 @@ if has('lua')
     \ 'javascript' : $VIMFILES.'/dict/javascript.dict',
     \ 'coffee' : $VIMFILES.'/dict/javascript.dict'
     \ }
+    if !exists('g:neocomplcache_force_omni_patterns')
+        let g:neocomplcache_force_omni_patterns = {}
+    endif
     " <TAB>: completion.
     inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 endif
