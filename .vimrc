@@ -125,7 +125,7 @@ let g:Powerline_symbols = 'unicode'
 
 " 在文件中启用自动完成
 au FileType ruby,coffee setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab
-au FileType javascript,css,html,htmldjango,tpl setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab
+au FileType javascript,css,html,htmldjango,tpl setlocal softtabstop=2 tabstop=2 shiftwidth=2 expandtab
 au FileType sass setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab
 au BufRead *.wsgi set syntax=python
 au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
