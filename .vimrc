@@ -3,8 +3,6 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-
-
 "Vundle
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -29,7 +27,6 @@ Bundle 'heavenshell/vim-jsdoc'
 Bundle 'hail2u/vim-css3-syntax'
 Bundle 'skammer/vim-css-color'
 " gui
-"Bundle 'Valloric/YouCompleteMe'
 if has('lua')
     Bundle 'Shougo/neocomplete.vim'
 else
@@ -46,7 +43,6 @@ Bundle 'docunext/closetag.vim'
 " git
 "Bundle 'Xuyuanp/git-nerdtree'
 "Bundle 'airblade/vim-gitgutter'
-
 "Bundle 'nathanaelkane/vim-indent-guides'
 
 
@@ -125,6 +121,13 @@ set list lcs=tab:\|\
 "set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 "let g:indent_guides_enable_on_vim_startup = 1
 
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.whitespace = 'Ξ'
+
 set tabstop=4        " 用TAB键一次4个空格
 set expandtab
 set shiftwidth=4     " 敲回车时也是缩进4个
@@ -149,9 +152,31 @@ aug coffee
 aug END
 
 if has('lua')
+    let g:EclimCompletionMethod = 'omnifunc'
     let g:acp_enableAtStartup = 0
     let g:neocomplete#enable_at_startup = 1
     let g:neocomplete#enable_smart_case = 1
+    let g:neocomplcache_enable_camel_case_completion = 1
+    let g:neocomplcache_enable_underbar_completion = 1
+    let g:neocomplcache_min_syntax_length = 3
+    let g:neocomplcache_enable_auto_select = 0
+    let g:neocomplcache_enable_quick_match = 1
+    let g:neocomplcache_lock_buffer_name_pattern = '/*ku/*'
+
+    let g:neocomplete#include_patterns = {
+    \ 'ruby'       : '^\s*require',
+    \ 'javascript' : '^\s*require',
+    \ 'coffee'     : '^\s*require',
+    \ }
+    let g:neocomplete#include_suffixes = {
+    \ 'ruby'       : '.rb',
+    \ 'javascript' : '.js',
+    \ 'coffee'     : '.coffee',
+    \ }
+    let g:neocomplcache_dictionary_filetype_lists = {
+    \ 'javascript' : $VIMFILES.'/dict/javascript.dict',
+    \ 'coffee' : $VIMFILES.'/dict/javascript.dict'
+    \ }
     " <TAB>: completion.
     inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 endif
@@ -159,15 +184,15 @@ let g:UltiSnipsExpandTrigger="<C-E>"
 
 
 " 设置ctrlsf
-let g:ctrlsf_ackprg = 'ag'
-let g:Powerline_symbols = 'unicode'
+"let g:ctrlsf_ackprg = 'ag'
 
 " 在文件中启用自动完成
 au FileType ruby,coffee setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab
-au FileType javascript,css,html,htmldjango,tpl setlocal softtabstop=2 tabstop=2 shiftwidth=2 expandtab
+au FileType javascript,css,less,html,htmldjango,tpl setlocal softtabstop=2 tabstop=2 shiftwidth=2 expandtab
 au FileType sass setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab
 au BufRead *.wsgi set syntax=python
 au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+au FileType coffee     set omnifunc=javascriptcomplete#CompleteJS
 au FileType html set omnifunc=htmlcomplete#CompleteTags
 au FileType tpl set omnifunc=htmlcomplete#CompleteTags
 au FileType css set omnifunc=csscomplete#CompleteCSS
@@ -183,7 +208,6 @@ autocmd! InsertEnter * set noimdisable|set iminsert=0
 map <leader>n :NERDTreeToggle<CR>
 map <leader>cc :TCommentBlock<CR>
 map <leader>d :JsDoc<CR>
-
 
 
 " 自动文档配置
