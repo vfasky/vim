@@ -108,7 +108,7 @@ set ls=2
 set path=.,,**
 " 设置默认字体  
 if has('mac')
-    set guifont=Source\ Code\ Pro\:h20 
+    set guifont=Source\ Code\ Pro\ for\ Powerline:h18 
 elseif has('win32')
     "set guifont=*
     "set guifont?
@@ -127,17 +127,18 @@ set list lcs=tab:\|\
 "set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 "let g:indent_guides_enable_on_vim_startup = 1
 
-if !has('win32')
-    let g:airline_left_sep = '▶'
-    let g:airline_right_sep = '◀'
-    let g:airline_symbols.branch = '⎇'
-    let g:airline_symbols.linenr = '¶'
-    let g:airline_symbols.paste = 'Þ'
-    let g:airline_symbols.whitespace = 'Ξ'
-else
-    
-    let g:airline_powerline_fonts = 1
-endif
+" if !has('win32')
+"     let g:airline_left_sep = '▶'
+"     let g:airline_right_sep = '◀'
+"     let g:airline_symbols.branch = '⎇'
+"     let g:airline_symbols.linenr = '¶'
+"     let g:airline_symbols.paste = 'Þ'
+"     let g:airline_symbols.whitespace = 'Ξ'
+" else
+"     
+"     let g:airline_powerline_fonts = 1
+" endif
+let g:airline_powerline_fonts = 1
 
 set tabstop=4        " 用TAB键一次4个空格
 set expandtab
