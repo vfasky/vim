@@ -25,6 +25,7 @@ Bundle 'heavenshell/vim-jsdoc'
 "Bundle 'dyng/ctrlsf.vim'
 Bundle 'hail2u/vim-css3-syntax'
 Bundle 'skammer/vim-css-color'
+Bundle 'Valloric/MatchTagAlways'
 " gui
 if has('lua')
     Bundle 'Shougo/neocomplete.vim'
@@ -58,7 +59,7 @@ let g:molokai_original = 1
 if has('gui_running')
     "colorscheme monokai 
     " colo molokai
-    set background=dark
+    set background=light
     colorscheme solarized
 else
     "let g:solarized_termcolors=256
