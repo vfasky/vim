@@ -231,6 +231,9 @@ map <leader>d :JsDoc<CR>
 let g:doc_author = 'vfasky <vfasky@gmail.com>'
 let g:doc_link   = 'http://vfasky.com'
 
+" 语法检查
+let g:syntastic_check_on_open=1
+let g:syntastic_javscript_jslint_args = "--foo --bar --baz"
 
 " js 自动添加文件头
 function! HeaderJS()
@@ -240,6 +243,7 @@ function! HeaderJS()
     call append(3, ' * @author ' . g:doc_author)
     call append(4, ' * @version $Id$')
     call append(5, ' */')
+    call append(6, '/*global define, require*/')
     normal G
     normal o
     normal o
