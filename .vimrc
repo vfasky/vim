@@ -141,6 +141,9 @@ set list lcs=tab:\|\
 " endif
 let g:airline_powerline_fonts = 1
 
+" npm install -g jshint
+let g:syntastic_javascript_checkers = ['jshint']
+
 set tabstop=4        " 用TAB键一次4个空格
 set expandtab
 set shiftwidth=4     " 敲回车时也是缩进4个
