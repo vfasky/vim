@@ -44,6 +44,7 @@ Bundle 'docunext/closetag.vim'
 "Bundle 'Xuyuanp/git-nerdtree'
 "Bundle 'airblade/vim-gitgutter'
 "Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'tpope/vim-fugitive'
 
 " 配色
 Bundle 'altercation/vim-colors-solarized'
@@ -246,7 +247,6 @@ function! HeaderJS()
     call append(3, ' * @author ' . g:doc_author)
     call append(4, ' * @version $Id$')
     call append(5, ' */')
-    call append(6, '/*global define, require*/')
     normal G
     normal o
     normal o

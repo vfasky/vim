@@ -18,3 +18,19 @@ snippet re
 return $1;
 endsnippet
 
+snippet use
+"use strict";
+
+endsnippet
+
+snippet req
+var $1 = require('$1');
+endsnippet
+
+snippet dtd
+var dtd = $.Deferred();
+
+	dtd.resolve($1);
+
+return dtd.promise();
+endsnippet
