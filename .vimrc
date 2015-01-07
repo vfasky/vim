@@ -8,7 +8,7 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-Bundle 'altercation/vim-colors-solarized'
+"Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
 Bundle 'tpope/vim-sensible'
 Bundle 'scrooloose/nerdtree'
@@ -41,14 +41,21 @@ Bundle 'Raimondi/delimitMate'
 " 自动补全html/xml标签
 Bundle 'docunext/closetag.vim'
 " git
-"Bundle 'Xuyuanp/git-nerdtree'
-"Bundle 'airblade/vim-gitgutter'
-"Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'tpope/vim-fugitive'
 
 " 配色
 Bundle 'altercation/vim-colors-solarized'
 
+" 格式化代码
+if has('gui_running')
+    Bundle 'maksimr/vim-jsbeautify'
+    " for js
+    autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+    " for html
+    autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+    " for css or scss
+    autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+endif
 
 execute pathogen#infect()
 
@@ -112,8 +119,6 @@ set path=.,,**
 if has('mac')
     set guifont=Source\ Code\ Pro\ for\ Powerline:h18 
 elseif has('win32')
-    "set guifont=*
-    "set guifont?
     set guifont=Source_Code_Pro_Light:h14:cANSI,YaHei\ Consolas\ Hybrid:h14
 else
     set guifont=Source\ Code\ Pro\ 14
@@ -129,21 +134,8 @@ set list lcs=tab:\|\
 "set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 "let g:indent_guides_enable_on_vim_startup = 1
 
-" if !has('win32')
-"     let g:airline_left_sep = '▶'
-"     let g:airline_right_sep = '◀'
-"     let g:airline_symbols.branch = '⎇'
-"     let g:airline_symbols.linenr = '¶'
-"     let g:airline_symbols.paste = 'Þ'
-"     let g:airline_symbols.whitespace = 'Ξ'
-" else
-"     
-"     let g:airline_powerline_fonts = 1
-" endif
 let g:airline_powerline_fonts = 1
 
-" npm install -g jshint
-let g:syntastic_javascript_checkers = ['jshint']
 
 set tabstop=4        " 用TAB键一次4个空格
 set expandtab
@@ -231,13 +223,16 @@ map <leader>cc :TCommentBlock<CR>
 map <leader>d :JsDoc<CR>
 
 
+
 " 自动文档配置
 let g:doc_author = 'vfasky <vfasky@gmail.com>'
 let g:doc_link   = 'http://vfasky.com'
 
 " 语法检查
 let g:syntastic_check_on_open=1
-let g:syntastic_javscript_jslint_args = "--foo --bar --baz"
+
+" npm install -g jshint
+let g:syntastic_javascript_checkers = ['jshint']
 
 " js 自动添加文件头
 function! HeaderJS()
@@ -245,8 +240,7 @@ function! HeaderJS()
     call append(1, ' * ')
     call append(2, ' * @date ' . strftime('%Y-%m-%d %T', localtime()))
     call append(3, ' * @author ' . g:doc_author)
-    call append(4, ' * @version $Id$')
-    call append(5, ' */')
+    call append(4, ' */')
     normal G
     normal o
     normal o
@@ -267,7 +261,6 @@ function! HeaderPython()
     call append(2, "# @Date: " . strftime('%Y-%m-%d %T', localtime()))
     call append(3, "# @Author: " . g:doc_author)
     call append(4, "# @Link: " . g:doc_link)
-    call append(5, "# @Version: $Id$")
     normal G
     normal o
     normal o
