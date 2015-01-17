@@ -19,6 +19,7 @@ Bundle 'groenewege/vim-less'
 Bundle 'pangloss/vim-javascript'
 Bundle 'leshill/vim-json'
 Bundle 'plasticboy/vim-markdown'
+"语法检查
 Bundle 'scrooloose/syntastic'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'heavenshell/vim-jsdoc'
