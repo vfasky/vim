@@ -47,6 +47,9 @@ Bundle 'tpope/vim-fugitive'
 " 配色
 Bundle 'altercation/vim-colors-solarized'
 
+" 缩进
+Bundle 'nathanaelkane/vim-indent-guides'
+
 " 格式化代码
 if has('gui_running')
     Bundle 'maksimr/vim-jsbeautify'
@@ -133,6 +136,19 @@ set autochdir
 
 " 设置当前行高亮, cursorline
 set cul 
+
+" 随 vim 自启动
+let g:indent_guides_enable_on_vim_startup=1
+" 从第二层开始可视化显示缩进
+let g:indent_guides_start_level=2
+" 色块宽度
+let g:indent_guides_guide_size=1
+
+" 基于缩进或语法进行代码折叠
+"set foldmethod=indent
+set foldmethod=syntax
+" 启动 vim 时关闭折叠代码
+set nofoldenable
 
 
 " 显示缩进tab线  
