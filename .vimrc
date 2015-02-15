@@ -137,7 +137,7 @@ set autochdir
 " 设置当前行高亮, cursorline
 set cul 
 
-" 随 vim 自启动
+" 随可视化缩进随 vim 启动
 let g:indent_guides_enable_on_vim_startup=1
 " 从第二层开始可视化显示缩进
 let g:indent_guides_start_level=2
@@ -185,6 +185,10 @@ aug END
 if has('lua')
     let g:EclimCompletionMethod = 'omnifunc'
     let g:acp_enableAtStartup = 0
+    let g:neocomplete#auto_completion_start_length = 1
+    let g:neocomplete#sources#buffer#cache_limit_size = 50000
+    let g:neocomplete#data_directory = $HOME.'/.vim/cache/noecompl'
+
     let g:neocomplete#enable_at_startup = 1
     let g:neocomplete#enable_smart_case = 1
     let g:neocomplcache_enable_camel_case_completion = 1
@@ -192,28 +196,43 @@ if has('lua')
     let g:neocomplcache_min_syntax_length = 3
     let g:neocomplcache_enable_auto_select = 0
     let g:neocomplcache_enable_quick_match = 1
+    let g:neocomplete#sources#syntax#min_keyword_length = 2
     let g:neocomplcache_lock_buffer_name_pattern = '/*ku/*'
 
-    let g:neocomplete#include_patterns = {
-    \ 'ruby'       : '^\s*require',
-    \ 'javascript' : '^\s*require',
-    \ 'coffee'     : '^\s*require',
-    \ }
-    let g:neocomplete#include_suffixes = {
-    \ 'ruby'       : '.rb',
-    \ 'javascript' : '.js',
-    \ 'coffee'     : '.coffee',
-    \ }
-    let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'javascript' : $VIMFILES.'/dict/javascript.dict',
-    \ 'coffee' : $VIMFILES.'/dict/javascript.dict'
-    \ }
-    if !exists('g:neocomplcache_force_omni_patterns')
-        let g:neocomplcache_force_omni_patterns = {}
-    endif
+    " let g:neocomplete#include_patterns = {
+    " \ 'ruby'       : '^\s*require',
+    " \ 'javascript' : '^\s*require',
+    " \ 'coffee'     : '^\s*require',
+    " \ }
+    " let g:neocomplete#include_suffixes = {
+    " \ 'ruby'       : '.rb',
+    " \ 'javascript' : '.js',
+    " \ 'coffee'     : '.coffee',
+    " \ }
+    " let g:neocomplcache_dictionary_filetype_lists = {
+    " \ 'javascript' : $VIMFILES.'/dict/javascript.dict',
+    " \ 'coffee' : $VIMFILES.'/dict/javascript.dict'
+    " \ }
+    " if !exists('g:neocomplcache_force_omni_patterns')
+    "     let g:neocomplcache_force_omni_patterns = {}
+    " endif
+
     " <TAB>: completion.
     inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 endif
+
+" 设置自动完成
+augroup omnicomplete
+  autocmd!
+  autocmd FileType coffee setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup END
+
 "Ctrl+e
 let g:UltiSnipsExpandTrigger="<C-E>"
 
@@ -226,11 +245,7 @@ au FileType ruby,coffee setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab
 au FileType javascript,css,less,html,htmldjango,tpl setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab
 au FileType sass setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab
 au BufRead *.wsgi set syntax=python
-au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-au FileType coffee     set omnifunc=javascriptcomplete#CompleteJS
-au FileType html set omnifunc=htmlcomplete#CompleteTags
-au FileType tpl set omnifunc=htmlcomplete#CompleteTags
-au FileType css set omnifunc=csscomplete#CompleteCSS
+
 au BufRead,BufNewFile Gemfile,Guardfile set syntax=ruby
 
 " 中文输入法问题
