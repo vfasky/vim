@@ -199,6 +199,10 @@ if has('lua')
     let g:neocomplete#sources#syntax#min_keyword_length = 2
     let g:neocomplcache_lock_buffer_name_pattern = '/*ku/*'
 
+    if !exists('g:neocomplete#sources#omni#input_patterns')
+        let g:neocomplete#sources#omni#input_patterns = {}
+    endif
+
     " let g:neocomplete#include_patterns = {
     " \ 'ruby'       : '^\s*require',
     " \ 'javascript' : '^\s*require',
