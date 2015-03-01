@@ -2,3 +2,4 @@
 bundle/*
 
 .vimrc.swo
+cache/*
