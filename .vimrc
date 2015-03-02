@@ -279,7 +279,7 @@ let g:doc_author = 'vfasky <vfasky@gmail.com>'
 let g:doc_link   = 'http://vfasky.com'
 
 " 语法检查
-let g:syntastic_check_on_open=1
+let g:syntastic_check_on_open =1
 
 " npm install -g jshint
 let g:syntastic_javascript_checkers = ['jshint']
