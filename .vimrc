@@ -27,6 +27,11 @@ Bundle 'heavenshell/vim-jsdoc'
 Bundle 'hail2u/vim-css3-syntax'
 Bundle 'skammer/vim-css-color'
 Bundle 'Valloric/MatchTagAlways'
+
+Bundle 'marijnh/tern_for_vim'
+" tagbar
+Bundle 'majutsushi/tagbar'
+
 " gui
 if has('lua')
     Bundle 'Shougo/neocomplete.vim'
@@ -262,7 +267,11 @@ autocmd! InsertEnter * set noimdisable|set iminsert=0
 map <leader>n :NERDTreeToggle<CR>
 map <leader>cc :TCommentBlock<CR>
 map <leader>d :JsDoc<CR>
+map <leader>t :TagbarToggle<CR>
 
+" for tagbar
+let g:tagbar_autofocus = 1
+let g:tagbar_width = 50
 
 
 " 自动文档配置
