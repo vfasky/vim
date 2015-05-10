@@ -11,6 +11,8 @@ endsnippet
 snippet amd
 define('$1', ['jquery'], function($){
 	
+	"use strict";
+
 });
 endsnippet
 
@@ -30,7 +32,7 @@ endsnippet
 snippet dtd
 var dtd = $.Deferred();
 
-	dtd.resolve($1);
+dtd.resolve($1);
 
 return dtd.promise();
 endsnippet
