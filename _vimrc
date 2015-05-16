@@ -23,7 +23,11 @@ NeoBundle 'Valloric/YouCompleteMe', {
         \ 'mac'     : './install.sh --clang-completer --system-libclang --omnisharp-completer'
     \ }
 \ }
-NeoBundle 'marijnh/tern_for_vim'
+NeoBundle 'marijnh/tern_for_vim', {
+    \ 'build'  : {
+        \ 'mac' : 'npm install'
+    \ }
+\ }
 
 " 快速书写html <C-y>,  触发
 NeoBundle 'mattn/emmet-vim'
@@ -64,6 +68,7 @@ NeoBundleLazy 'jelera/vim-javascript-syntax',{
 
 " css高亮
 NeoBundle 'hail2u/vim-css3-syntax'
+NeoBundle 'groenewege/vim-less'
 
 " md高亮
 NeoBundle 'tpope/vim-markdown'
