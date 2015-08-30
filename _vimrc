@@ -28,6 +28,12 @@ NeoBundle 'marijnh/tern_for_vim', {
         \ 'mac' : 'npm install'
     \ }
 \ }
+" 快速跳转
+NeoBundle 'wincent/command-t', {
+    \ 'build': {
+        \ 'mac': 'sh -c "cd ruby/command-t && ruby extconf.rb && make"'
+    \  }
+\}
 
 " 快速书写html <C-y>,  触发
 NeoBundle 'mattn/emmet-vim'
@@ -59,7 +65,9 @@ NeoBundle 'jistr/vim-nerdtree-tabs'
 NeoBundle 'heavenshell/vim-jsdoc'
 
 " js高亮
+NeoBundle 'othree/javascript-libraries-syntax.vim'
 NeoBundle 'pangloss/vim-javascript'
+"NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundleLazy 'jelera/vim-javascript-syntax',{
     \ 'autoload': {
         \ 'filetypes': ['javascript']
@@ -69,6 +77,7 @@ NeoBundleLazy 'jelera/vim-javascript-syntax',{
 " css高亮
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'groenewege/vim-less'
+NeoBundle 'cakebaker/scss-syntax.vim'
 
 " md高亮
 NeoBundle 'tpope/vim-markdown'
@@ -99,7 +108,13 @@ NeoBundle 'maksimr/vim-jsbeautify'
 NeoBundle 'einars/js-beautify'
 
 " 注释
+"<leader>cc 加上注释
+"<leader>cu 解开注释
+"<leader>ci 加上/解开注释
 NeoBundle 'scrooloose/nerdcommenter'
+
+" 查找
+NeoBundle 'dyng/ctrlsf.vim'
 
 " Required:
 call neobundle#end()
@@ -113,6 +128,25 @@ NeoBundleCheck
 syntax enable
 
 """ 插件设置 """
+
+"vim-javascript
+let g:javascript_conceal_function   = "ƒ"
+let g:javascript_conceal_null       = "ø"
+let g:javascript_conceal_this       = "@"
+let g:javascript_conceal_return     = "⇚"
+let g:javascript_conceal_undefined  = "¿"
+let g:javascript_conceal_NaN        = "ℕ"
+let g:javascript_conceal_prototype  = "¶"
+let g:javascript_conceal_static     = "•"
+let g:javascript_conceal_super      = "Ω"
+let g:javascript_enable_domhtmlcss  = 1
+
+" javascript-libraries-syntax.vim
+let g:used_javascript_libs = 'jquery,requirejs'
+
+" tren
+let g:tern_map_keys = 1
+"let g:tern_show_argument_hints = 'on_hold'
 
 " 语法检查配置
 " 依赖 npm install -g jshint
@@ -133,6 +167,16 @@ let g:UltiSnipsExpandTrigger="<C-E>"
 "let g:UltiSnipsSnippetDirectories = ['UltiSnips']
 "let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
 
+" scss
+au BufRead,BufNewFile *.scss set filetype=scss.css
+
+" coffee
+autocmd FileType coffee nnoremap <leader>p :CoffeeWatch vert<cr>
+
+" tern
+autocmd FileType javascript setlocal completeopt-=preview
+autocmd FileType javascript nnoremap <leader>jd :TernDef<cr>
+autocmd FileType javascript nnoremap <leader>jr :TernRefs<cr>
 
 " 代码格式化设置
 autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
@@ -148,7 +192,7 @@ autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
 " YCM
 set completeopt-=preview
 let g:ycm_add_preview_to_completeopt = 0
-nnoremap <leader>jd :YcmCompleter GoTo<CR>
+" nnoremap <leader>jd :YcmCompleter GoTo<CR>
 
 " jsdoc
 let g:jsdoc_allow_input_prompt = 1
@@ -172,7 +216,7 @@ endif
 
 " 设置默认字体  
 if has('mac')
-    set guifont=Source\ Code\ Pro\ for\ Powerline:h18 
+    set guifont=Source\ Code\ Pro\ for\ Powerline:h16
 elseif has('win32')
     set guifont=Source_Code_Pro_Light:h14:cANSI,YaHei\ Consolas\ Hybrid:h14
 else
@@ -181,6 +225,9 @@ endif
 
 " 自动设换到当前目录
 set autochdir
+
+" 指定shell
+set shell=zsh\ -i
 
 " 制表符
 set tabstop=4
@@ -215,23 +262,28 @@ set mouse=a
 set cc=80
 set cc+=120
 
-if has("gui_macvim")
-    " 中文输入法问题
-    " - 偏好设置界面里面（按 ⌘+,），把 Draw marked text inline 这个选项去掉
-    set noimdisable
-    autocmd! InsertLeave * set imdisable|set iminsert=0
-    autocmd! InsertEnter * set noimdisable|set iminsert=0
-endif
+"if has("gui_macvim")
+    "" 中文输入法问题
+    "" - 偏好设置界面里面（按 ⌘+,），把 Draw marked text inline 这个选项去掉
+    "set noimdisable
+    "autocmd! InsertLeave * set imdisable|set iminsert=0
+    "autocmd! InsertEnter * set noimdisable|set iminsert=0
+"endif
 
 """ 快捷键 """
 "map <leader>n :NERDTreeToggle<CR>
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 map <leader>d :JsDoc<CR>
 
+
+
+
 " 打开 vimrc
 nnoremap <leader>ev :e $MYVIMRC<cr>
 " 执行 vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
+" 打开 vimrc
+nnoremap <leader>es :e ~/.vim/UltiSnips/javascript.snippets<cr>
 
 " 用双引号括当前单词
 nnoremap <leader>" viw<esc>i"<esc>hbi"<esc>lel
@@ -303,5 +355,20 @@ function! InsertCommentCoffee()
 endfunc
 autocmd bufnewfile *.coffee call HeaderCoffee()
 au FileType coffee :%call InsertCommentCoffee()
+
+" 自动编译coffee script
+autocmd BufWritePost *.coffee silent make!
+
+"aug coffee
+    "au!
+    "au BufNewFile,BufRead *.coffee      setf coffee.python
+    "au FileType coffee.python           setl makeprg=coffee\ -c\ %
+    "au FileType coffee.python           setl errorformat=Error:\ In\ %f\\,\ %m\ on\ line\ %l,
+                                                       "\Error:\ In\ %f\\,\ Parse\ error\ on\ line\ %l:\ %m,
+                                                       "\SyntaxError:\ In\ %f\\,\ %m,
+                                                       "\%-G%.%#
+    "au BufWritePost *.coffee silent! make!
+
+"aug END
 
 

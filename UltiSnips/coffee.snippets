@@ -1,15 +1,14 @@
 snippet log
-console.log($1);
+console.log $1
 endsnippet
 
 snippet seti
-setInterval(function(){
+setInterval ->
 	$1
-}, 1000);
 endsnippet
 
 snippet cleari
-clearInterval($1);
+clearInterval $1
 endsnippet
 
 
@@ -38,28 +37,29 @@ snippet @c
 @constructor $1
 endsnippet
 
-
-snippet fun
-function(){
-	$1
-}
+snippet doc
+###*
+ * $1
+ * @author vfasky <vfasky@gmail.com>
+ * $2
+###
 endsnippet
 
+
 snippet amd
-/**
+###*
  *
  * @module $1
  * @author vfasky <vfasky@gmail.com>
- */
-define('$1', ['jquery'], function($){
+###
+define '$1', ['jquery'], ($)->
 	
-	"use strict";
+	"use strict"
 
-});
 endsnippet
 
 snippet re
-return $1;
+return
 endsnippet
 
 snippet use
@@ -68,35 +68,33 @@ snippet use
 endsnippet
 
 snippet req
-var $1 = require('$1');
+$1 = require '$1'
 endsnippet
 
 snippet self
-var self = this;
+self = @
 endsnippet
 
 snippet sub
-$1.subclass({
-	constructor: $1.prototype.constructor,
-	$2: function(){
-
-	}
-});
+$1.subclass
+	constructor: $1::constructor
+	$2: ->
 endsnippet
 
 snippet dtd
-var dtd = $.Deferred();
+dtd = $.Deferred()
 
-dtd.resolve($1);
+dtd.resolve $1
 
-return dtd.promise();
+dtd.promise()
 endsnippet
 
 snippet exp
 module.exports
 endsnippet
 
-
 snippet refa
-return false;
+false
 endsnippet
+
+
