@@ -13,24 +13,36 @@ endsnippet
 
 
 snippet pro
-prototype.$1
+* prototype.$1
 endsnippet
 
 snippet @m
-@module $1
+* @module $1
 endsnippet
 
 snippet @e
-@example $1
+* @example $1
+endsnippet
+
+snippet @p
+* @param {String} $1
+endsnippet
+
+snippet @pd
+* @param {Object} data
+endsnippet
+
+snippet @pd.
+* @param {String} data.$1
 endsnippet
 
 snippet @ext
-@extends $1
+* @extends $1
 endsnippet
 
 
 snippet @a
-@alias $1
+* @alias $1
 endsnippet
 
 snippet @c
@@ -43,6 +55,18 @@ snippet doc
  * @author vfasky <vfasky@gmail.com>
  * $2
 ###
+endsnippet
+
+snippet cmd
+###*
+ *
+ * $1
+ * @author vfasky <vfasky@gmail.com>
+###
+	
+"use strict"
+
+
 endsnippet
 
 
@@ -63,7 +87,7 @@ return
 endsnippet
 
 snippet use
-"use strict";
+"use strict"
 
 endsnippet
 
@@ -90,11 +114,17 @@ dtd.promise()
 endsnippet
 
 snippet exp
-module.exports
+module.exports =
+endsnippet
+
+snippet $
+$ = require 'jquery'
 endsnippet
 
 snippet refa
-false
+return false
 endsnippet
 
-
+snippet vn
+module.exports.viewName = '$1'
+endsnippet

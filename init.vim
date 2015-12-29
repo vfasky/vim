@@ -1,0 +1,1 @@
+/Users/vfasky/.vimrc

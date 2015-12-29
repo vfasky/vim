@@ -1,4 +1,7 @@
-"NeoBundle Scripts
+" python env
+let g:python_host_prog = '/usr/bin/python'
+
+" NeoBundle Scripts
 if has('vim_starting')
     if &compatible
         set nocompatible               " Be iMproved
@@ -14,8 +17,15 @@ call neobundle#begin(expand('~/.vim/bundle'))
 " 设置安装插件超时
 let g:neobundle#install_process_timeout = 1800  "YouCompleteMe is so slow
 
+
 " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
+
+" colorschemes
+NeoBundle 'flazz/vim-colorschemes'
+
+"NeoBundle 'vim-scripts/Conque-Shell'
+"NeoBundle 'Shougo/vimshell.vim'
 
 " 自动补全
 NeoBundle 'Valloric/YouCompleteMe', {
@@ -23,17 +33,17 @@ NeoBundle 'Valloric/YouCompleteMe', {
         \ 'mac'     : './install.sh --clang-completer --system-libclang --omnisharp-completer'
     \ }
 \ }
-NeoBundle 'marijnh/tern_for_vim', {
-    \ 'build'  : {
-        \ 'mac' : 'npm install'
-    \ }
-\ }
+"NeoBundle 'marijnh/tern_for_vim', {
+    "\ 'build'  : {
+        "\ 'mac' : 'npm install'
+    "\ }
+"\ }
+NeoBundle 'marijnh/tern_for_vim'
+NeoBundle 'othree/tern_for_vim_coffee'
+
 " 快速跳转
-NeoBundle 'wincent/command-t', {
-    \ 'build': {
-        \ 'mac': 'sh -c "cd ruby/command-t && ruby extconf.rb && make"'
-    \  }
-\}
+NeoBundle 'kien/ctrlp.vim'
+" NeoBundle 'tacahiroy/ctrlp-funky'
 
 " 快速书写html <C-y>,  触发
 NeoBundle 'mattn/emmet-vim'
@@ -65,14 +75,9 @@ NeoBundle 'jistr/vim-nerdtree-tabs'
 NeoBundle 'heavenshell/vim-jsdoc'
 
 " js高亮
-NeoBundle 'othree/javascript-libraries-syntax.vim'
+NeoBundle 'othree/yajs.vim'
 NeoBundle 'pangloss/vim-javascript'
-"NeoBundle 'jelera/vim-javascript-syntax'
-NeoBundleLazy 'jelera/vim-javascript-syntax',{
-    \ 'autoload': {
-        \ 'filetypes': ['javascript']
-    \ }
-\ }
+NeoBundle 'othree/javascript-libraries-syntax.vim'
 
 " css高亮
 NeoBundle 'hail2u/vim-css3-syntax'
@@ -141,6 +146,29 @@ let g:javascript_conceal_static     = "•"
 let g:javascript_conceal_super      = "Ω"
 let g:javascript_enable_domhtmlcss  = 1
 
+" ctrlp
+"let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
+    \ 'file': '\v\.(exe|swp|so|dll|jpg|png|gif|bmp|zip|tar|tar.gz|pyc)$',
+    \ }
+
+let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
+" 如果安装了ag, 使用ag
+if executable('ag')
+    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    " ag is fast enough that CtrlP doesn't need to cache
+    let g:ctrlp_use_caching = 0
+endif
+
+" ctrlpfunky
+" nnoremap <Leader>fu :CtrlPFunky<Cr>
+" narrow the list down with a word under cursor
+" nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+" let g:ctrlp_funky_syntax_highlight = 1
+" let g:ctrlp_extensions = ['funky']
+
 " javascript-libraries-syntax.vim
 let g:used_javascript_libs = 'jquery,requirejs'
 
@@ -191,7 +219,32 @@ autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
 
 " YCM
 set completeopt-=preview
+let g:ycm_semantic_triggers = {
+    \ 'coffee': ['.']
+\}
 let g:ycm_add_preview_to_completeopt = 0
+" 在注释输入中也能补全
+let g:ycm_complete_in_comments = 1  
+" 在字符串输入中也能补全
+let g:ycm_complete_in_strings = 1   
+" 提示UltiSnips
+let g:ycm_use_ultisnips_completer = 1 
+" 注释和字符串中的文字也会被收入补全
+let g:ycm_collect_identifiers_from_comments_and_strings = 1   
+let g:ycm_collect_identifiers_from_tags_files = 1
+" 开启语法关键字补全
+let g:ycm_seed_identifiers_with_syntax = 1 
+
+" 引入，可以补全系统，以及python的第三方包 针对新老版本YCM做了兼容
+" old version
+if !empty(glob("~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py"))
+    let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py"
+endif
+" new version
+if !empty(glob("~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"))
+    let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
+endif
+
 " nnoremap <leader>jd :YcmCompleter GoTo<CR>
 
 " jsdoc
@@ -216,7 +269,7 @@ endif
 
 " 设置默认字体  
 if has('mac')
-    set guifont=Source\ Code\ Pro\ for\ Powerline:h16
+    set guifont=Source\ Code\ Pro\ for\ Powerline:h14
 elseif has('win32')
     set guifont=Source_Code_Pro_Light:h14:cANSI,YaHei\ Consolas\ Hybrid:h14
 else
@@ -227,9 +280,12 @@ endif
 set autochdir
 
 " 指定shell
-set shell=zsh\ -i
+"set shell=zsh\ -i
+"set shell=/bin/zsh\ -l
+"set shellcmdflag=-ic
 
 " 制表符
+set modifiable
 set tabstop=4
 set expandtab
 set smarttab
@@ -254,6 +310,8 @@ set hlsearch
 
 " 关闭备份
 set nobackup
+" 关闭交换文件
+set noswapfile
 
 " 在所有模式下都允许鼠标
 set mouse=a
@@ -282,8 +340,6 @@ map <leader>d :JsDoc<CR>
 nnoremap <leader>ev :e $MYVIMRC<cr>
 " 执行 vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
-" 打开 vimrc
-nnoremap <leader>es :e ~/.vim/UltiSnips/javascript.snippets<cr>
 
 " 用双引号括当前单词
 nnoremap <leader>" viw<esc>i"<esc>hbi"<esc>lel
@@ -337,15 +393,15 @@ au FileType python :%call InsertCommentPython()
 
 " coffee 自动添加文件头
 function! HeaderCoffee()
-    call setline(1, "###*")
-    call append(1, "# ")
-    call append(2, "# @date " . strftime('%Y-%m-%d %T', localtime()))
-    call append(3, "# @author " . g:doc_author)
-    call append(4, "# @link " . g:doc_link)
-    call append(5, "# @version $Id$")
-    call append(6, "###")
-    call append(7, "")
+    call setline(1, "\#\#\#*")
+    call append(1, "\# ")
+    call append(2, "\# @date " . strftime('%Y-%m-%d %T', localtime()))
+    call append(3, "\# @author " . g:doc_author)
+    call append(4, "\# @link " . g:doc_link)
+    call append(5, "\#\#\#")
+    call append(6, "'use strict'")
     normal G
+    normal o
     normal o
 endf
 function! InsertCommentCoffee()
@@ -357,7 +413,21 @@ autocmd bufnewfile *.coffee call HeaderCoffee()
 au FileType coffee :%call InsertCommentCoffee()
 
 " 自动编译coffee script
-autocmd BufWritePost *.coffee silent make!
+autocmd BufWritePost *.coffee silent make! --bare
+
+" 定义函数AutoSetFileHead，自动插入文件头
+function! AutoSetFileHead()
+    "如果文件类型为.sh文件
+    if &filetype == 'sh'
+        call setline(1, "\#!/bin/bash")
+    endif
+
+    normal G
+    normal o
+    normal o
+endfunc
+autocmd BufNewFile *.sh exec ":call AutoSetFileHead()"
+
 
 "aug coffee
     "au!
